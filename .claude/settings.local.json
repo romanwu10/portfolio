@@ -7,6 +7,9 @@
       "Bash(npm uninstall:*)",
       "Bash(git ls-tree:*)"
     ],
-    "deny": []
+    "deny": [],
+    "additionalDirectories": [
+      "/Users/roman/Downloads"
+    ]
   }
 }
