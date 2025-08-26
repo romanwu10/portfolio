@@ -3,7 +3,9 @@
     "allow": [
       "Bash(npm start)",
       "Bash(npm install:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(git ls-tree:*)"
     ],
     "deny": []
   }

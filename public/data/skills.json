@@ -1,13 +1,13 @@
 {
   "programming_languages": [
-    { "name": "C++", "logo": "logo_skills/cpp.svg" },
     { "name": "Python", "logo": "logo_skills/python.svg" },
-    { "name": "TypeScript", "logo": "logo_skills/typescript.svg" }
+    { "name": "TypeScript", "logo": "logo_skills/typescript.svg" },
+    { "name": "SQL", "logo": "logo_skills/sql.svg" }
   ],
   "frameworks": [
-    { "name": "SQL", "logo": "logo_skills/sql.svg" },
-    { "name": "Linux", "logo": "logo_skills/linux.svg" },
-    { "name": "Networking", "logo": "logo_skills/networking.svg" }
+    { "name": "Redis", "logo": "logo_skills/redis.svg" },
+    { "name": "PostgreSQL", "logo": "logo_skills/postgresql.svg" },
+    { "name": "Linux", "logo": "logo_skills/linux.svg" }
   ],
   "technologies": [
     { "name": "Django", "logo": "logo_skills/django.svg" },

@@ -1,0 +1,10 @@
+# Cloudflare Pages SPA routing
+# Redirect all non-file requests to index.html for React Router compatibility
+/*    /index.html   200
+
+# Security headers
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-XSS-Protection: 1; mode=block

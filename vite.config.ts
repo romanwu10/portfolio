@@ -9,24 +9,30 @@ export default defineConfig({
     port: 3000,
   },
   build: {
-    // Performance optimizations
-    target: 'es2015',
+    // Cloudflare Pages optimizations
+    target: 'es2020', // Better support for modern browsers
     minify: 'esbuild',
     cssMinify: true,
+    sourcemap: false, // Disable sourcemaps for production
     rollupOptions: {
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
+          bootstrap: ['bootstrap', 'react-bootstrap'],
         },
+        // Optimize for Cloudflare's edge caching
+        assetFileNames: 'assets/[name]-[hash][extname]',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
       },
     },
-    // Optimize chunk size
+    // Optimize chunk size for Cloudflare's edge network
     chunkSizeWarningLimit: 1000,
   },
-  // Enable CSS code splitting
+  // Optimize CSS for production
   css: {
     devSourcemap: true,
   },
-  // Preload critical assets
+  // Preload critical assets with compression hints
   assetsInclude: ['**/*.svg', '**/*.png', '**/*.jpg', '**/*.jpeg'],
 })

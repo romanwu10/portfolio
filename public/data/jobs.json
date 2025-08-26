@@ -29,6 +29,22 @@
           "endYear": 2025
         }
       ]
+    },
+    {
+      "name": "Harvest",
+      "logo": "logo_companies/harvest.png",
+      "positions": [
+        {
+          "title": "Intern",
+          "company": "Harvest Fund Management",
+          "type": "Internship",
+          "location": "Toronto, ON",
+          "startMonth": "Sep",
+          "startYear": 2022,
+          "endMonth": "Dec",
+          "endYear": 2022
+        }
+      ]
     }
   ]
 }
