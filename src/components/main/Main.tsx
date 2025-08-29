@@ -42,6 +42,14 @@ const Main = () => {
     window.location &&
     (window.location.pathname === "/privacy" ||
       window.location.pathname.endsWith("/privacy/"));
+  const noSectionActive =
+    !ContentCtx.home &&
+    !ContentCtx.about &&
+    !ContentCtx.education &&
+    !ContentCtx.work &&
+    !ContentCtx.projects &&
+    !ContentCtx.resume &&
+    !ContentCtx.contact;
 
   return (
     <main className={classes.main}>
@@ -53,7 +61,7 @@ const Main = () => {
         </div>
       ) : (
         <>
-          {ContentCtx.home ? (
+          {(ContentCtx.home || noSectionActive) ? (
             <div className={classes.fadeInElement}>
               <Home />
             </div>

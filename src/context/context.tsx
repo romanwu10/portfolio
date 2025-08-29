@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import Content from "../models/content";
 
@@ -48,52 +48,98 @@ type Props = {
  *
  */
 const ContentProvider = (props: Props) => {
-  const [context, setContext] = useState<Content>({
-    home: true,
-    about: false,
-    education: false,
-    work: false,
-    projects: false, // Added projects
-    resume: false, // Added resume
-    contact: false,
+  const [context, setContext] = useState<Content>(() => {
+    if (typeof window !== "undefined") {
+      const p = window.location?.pathname ?? "/";
+      return {
+        ...{
+          home: false,
+          about: false,
+          education: false,
+          work: false,
+          projects: false,
+          resume: false,
+          contact: false,
+        },
+        ...contentFromPath(p),
+      } as Content;
+    }
+    return {
+      home: true,
+      about: false,
+      education: false,
+      work: false,
+      projects: false,
+      resume: false,
+      contact: false,
+    };
   });
 
-  const changeContent = (text: string) => {
-    let newContent: Content = {
+  const pathFor = useMemo(
+    () =>
+      ({
+        Home: "/",
+        About: "/about",
+        Education: "/education",
+        Work: "/work",
+        Projects: "/projects",
+        Resume: "/resume",
+        Contact: "/contact",
+      } as const),
+    []
+  );
+
+  function contentFromPath(path: string): Content {
+    const p = path.replace(/\/$/, "");
+    const base: Content = {
       home: false,
       about: false,
       education: false,
       work: false,
-      projects: false, // Added projects
-      resume: false, // Added resume
+      projects: false,
+      resume: false,
       contact: false,
     };
-
-    switch (text) {
-      case "About":
-        newContent.about = true;
-        break;
-      case "Education":
-        newContent.education = true;
-        break;
-      case "Work":
-        newContent.work = true;
-        break;
-      case "Projects": // Added Projects case
-        newContent.projects = true;
-        break;
-      case "Resume": // Added Resume case
-        newContent.resume = true;
-        break;
-      case "Contact":
-        newContent.contact = true;
-        break;
+    switch (p) {
+      case "":
+      case "/":
+        return { ...base, home: true };
+      case "/about":
+        return { ...base, about: true };
+      case "/education":
+        return { ...base, education: true };
+      case "/work":
+        return { ...base, work: true };
+      case "/projects":
+        return { ...base, projects: true };
+      case "/resume":
+        return { ...base, resume: true };
+      case "/contact":
+        return { ...base, contact: true };
       default:
-        newContent.home = true;
-        break;
+        // Do not change to a known section for unknown routes (e.g., /privacy)
+        return base;
     }
-    setContext(newContent);
+  }
+
+  const changeContent = (text: string) => {
+    const path = (pathFor as any)[text] ?? "/";
+    // Push path to history for SPA navigation
+    if (typeof window !== "undefined" && window.location?.pathname !== path) {
+      window.history.pushState({}, "", path);
+    }
+    setContext(contentFromPath(path));
   };
+
+  // Sync initial state and browser navigation (back/forward) with context
+  useEffect(() => {
+    const apply = () => setContext(contentFromPath(window.location.pathname));
+    apply();
+    const handler = () => apply();
+    window.addEventListener("popstate", handler);
+    return () => window.removeEventListener("popstate", handler);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const contextValue: ContentObj = {
     home: context.home,

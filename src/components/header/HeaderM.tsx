@@ -21,8 +21,20 @@ import { Navbar, Nav } from "react-bootstrap";
 const Header = () => {
   const ContentCtx = useContext(Context);
 
-  const changeTab = (text: string) => {
-    ContentCtx.changeContent(text);
+  const handleClick = (e: React.MouseEvent<HTMLElement>, tab: string) => {
+    // Allow new tab/window and modifier key behaviors
+    if (
+      e.defaultPrevented ||
+      e.button !== 0 ||
+      e.metaKey ||
+      e.altKey ||
+      e.ctrlKey ||
+      e.shiftKey
+    ) {
+      return;
+    }
+    e.preventDefault();
+    ContentCtx.changeContent(tab);
   };
 
   useEffect(() => {
@@ -59,64 +71,50 @@ const Header = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
             <Nav.Link
-              href="#"
-              onClick={() => {
-                changeTab("Home");
-              }}
+              href="/"
+              onClick={(e: any) => handleClick(e, "Home")}
               className={`${classes.headerNavLi} ${classes.navbar_color}`}
             >
               Home
             </Nav.Link>
             <Nav.Link
-              href="#"
-              onClick={() => {
-                changeTab("About");
-              }}
+              href="/about"
+              onClick={(e: any) => handleClick(e, "About")}
               className={`${classes.headerNavLi} ${classes.navbar_color}`}
             >
               About
             </Nav.Link>
             <Nav.Link
-              href="#"
-              onClick={() => {
-                changeTab("Education");
-              }}
+              href="/education"
+              onClick={(e: any) => handleClick(e, "Education")}
               className={`${classes.headerNavLi} ${classes.navbar_color}`}
             >
               Education
             </Nav.Link>
             <Nav.Link
-              href="#"
-              onClick={() => {
-                changeTab("Work");
-              }}
+              href="/work"
+              onClick={(e: any) => handleClick(e, "Work")}
               className={`${classes.headerNavLi} ${classes.navbar_color}`}
             >
               Work
             </Nav.Link>
             <Nav.Link
-              href="#"
-              onClick={() => {
-                changeTab("Projects");
-              }}
+              href="/projects"
+              onClick={(e: any) => handleClick(e, "Projects")}
               className={`${classes.headerNavLi} ${classes.navbar_color}`}
             >
               Projects
             </Nav.Link>
             <Nav.Link
-              href="#"
-              onClick={() => {
-                changeTab("Resume");
-              }}
+              href="/resume"
+              onClick={(e: any) => handleClick(e, "Resume")}
               className={`${classes.headerNavLi} ${classes.navbar_color}`}
             >
               Resume
             </Nav.Link>
             <Nav.Link
-              href="#"
-              onClick={() => {
-                changeTab("Contact");
-              }}
+              href="/contact"
+              onClick={(e: any) => handleClick(e, "Contact")}
               className={`${classes.headerNavLi} ${classes.navbar_color}`}
             >
               Contact

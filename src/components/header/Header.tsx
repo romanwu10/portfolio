@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useMemo } from "react";
 
 import classes from "./Header.module.css";
 import { Context } from "../../context/context";
@@ -21,22 +21,20 @@ import { Context } from "../../context/context";
  */
 const Header = () => {
   const ContentCtx = useContext(Context);
-  const [currentPage, setCurrentPage] = useState("Home");
 
   const changeTab = (text: string) => {
     ContentCtx.changeContent(text);
-    setCurrentPage(text);
   };
 
+  const isHomeRoute = useMemo(() => {
+    if (typeof window === "undefined") return true;
+    const p = window.location.pathname.replace(/\/$/, "");
+    return p === "" || p === "/";
+  }, [typeof window !== "undefined" ? window.location.pathname : "/"]);
+
   return (
-    <header
-      className={`${classes.mainHeader} ${
-        currentPage === "Home" ? classes.notHomePage : ""
-      }`}
-    >
-      {currentPage !== "Home" && (
-        <h2 className={classes.fadeInElement}>Roman Wu</h2>
-      )}
+    <header className={`${classes.mainHeader} ${isHomeRoute ? classes.notHomePage : ""}`}>
+      {!isHomeRoute && <h2 className={classes.fadeInElement}>Roman Wu</h2>}
       <nav>
         <ul className={classes.headerNavUl}>
           <li className={classes.headerNavLi}>
