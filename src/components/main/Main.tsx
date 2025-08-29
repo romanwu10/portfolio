@@ -13,6 +13,7 @@ import Work from "../pages/work/Work";
 import Projects from "../pages/projects/Projects"; // Added import
 import Resume from "../pages/resume/Resume"; // Added import
 import Contact from "../pages/contact/Contact";
+import Privacy from "../pages/privacy/Privacy";
 
 /**
  * Main Component
@@ -36,82 +37,100 @@ import Contact from "../pages/contact/Contact";
 const Main = () => {
   const ContentCtx = useContext(Context);
 
+  const isPrivacyRoute =
+    typeof window !== "undefined" &&
+    window.location &&
+    (window.location.pathname === "/privacy" ||
+      window.location.pathname.endsWith("/privacy/"));
+
   return (
     <main className={classes.main}>
-      {ContentCtx.home ? (
-        <div className={classes.fadeInElement}>
-          <Home />
-        </div>
-      ) : (
-        <></>
-      )}
-
-      {ContentCtx.about ? (
+      {isPrivacyRoute ? (
         <div className={classes.fadeInElement}>
           <div className={classes.centering}>
-            <About />
+            <Privacy />
           </div>
         </div>
       ) : (
-        <></>
-      )}
-
-      {ContentCtx.education ? (
-        <div className={classes.fadeInElement}>
-          <div className={classes.educationSection}>
-            <div className={classes.centering}>
-              <Education />
+        <>
+          {ContentCtx.home ? (
+            <div className={classes.fadeInElement}>
+              <Home />
             </div>
-            <div className={classes.centering}>
-              <Skills />
+          ) : (
+            <></>
+          )}
+
+          {ContentCtx.about ? (
+            <div className={classes.fadeInElement}>
+              <div className={classes.centering}>
+                <About />
+              </div>
             </div>
-            <div className={classes.centering}>
-              <Certifications />
+          ) : (
+            <></>
+          )}
+
+          {ContentCtx.education ? (
+            <div className={classes.fadeInElement}>
+              <div className={classes.educationSection}>
+                <div className={classes.centering}>
+                  <Education />
+                </div>
+                <div className={classes.centering}>
+                  <Skills />
+                </div>
+                <div className={classes.centering}>
+                  <Certifications />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
+          ) : (
+            <></>
+          )}
 
-      {ContentCtx.work ? (
-        <div className={classes.fadeInElement}>
-          <div className={classes.centering}>
-            <Work />
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
+          {ContentCtx.work ? (
+            <div className={classes.fadeInElement}>
+              <div className={classes.centering}>
+                <Work />
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
 
-      {ContentCtx.contact ? (
-        <div className={classes.fadeInElement}>
-          <div className={classes.centering}>
-            <Contact />
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
+          {ContentCtx.contact ? (
+            <div className={classes.fadeInElement}>
+              <div className={classes.centering}>
+                <Contact />
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
 
-      {ContentCtx.projects ? ( // Added Projects section
-        <div className={classes.fadeInElement}>
-          <div className={classes.centering}>
-            <Projects />
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
+          {ContentCtx.projects ? (
+            // Added Projects section
+            <div className={classes.fadeInElement}>
+              <div className={classes.centering}>
+                <Projects />
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
 
-      {ContentCtx.resume ? ( // Added Resume section
-        <div className={classes.fadeInElement}>
-          <div className={classes.centering}>
-            <Resume />
-          </div>
-        </div>
-      ) : (
-        <></>
+          {ContentCtx.resume ? (
+            // Added Resume section
+            <div className={classes.fadeInElement}>
+              <div className={classes.centering}>
+                <Resume />
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
+        </>
       )}
     </main>
   );

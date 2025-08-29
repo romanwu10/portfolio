@@ -1,0 +1,65 @@
+.container {
+  display: block;
+  width: 100%;
+  color: var(--body_color);
+}
+
+.inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.title {
+  margin: 0 0 var(--space-4) 0;
+}
+
+.subtitle {
+  margin: 0 0 var(--space-8) 0;
+  color: var(--text_secondary, #6b7280);
+  font-size: 0.95rem;
+}
+
+.section {
+  margin-bottom: var(--space-8);
+}
+
+.section h2 {
+  margin: 0 0 var(--space-3) 0;
+  font-size: 1.25rem;
+}
+
+.section p {
+  margin: 0 0 var(--space-3) 0;
+  line-height: 1.7;
+  text-align: justify;
+}
+
+.list {
+  padding-left: var(--space-6);
+  margin: 0;
+}
+
+.list li {
+  margin: 0 0 var(--space-2) 0;
+  line-height: 1.6;
+}
+
+.code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 0.95em;
+  background: rgba(127, 127, 127, 0.15);
+  padding: 0 0.3em;
+  border-radius: 6px;
+}
+
+/* Mobile tweaks */
+@media only screen and (max-width: 600px) {
+  .inner {
+    max-width: 100%;
+  }
+  .section p {
+    text-align: left;
+  }
+}
+

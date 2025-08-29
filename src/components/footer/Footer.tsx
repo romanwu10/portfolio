@@ -22,6 +22,9 @@ const Footer = () => {
   return (
     <footer className={classes.mainFooter}>
       <DarkMode />
+      <a href="/privacy" className={classes.footerLink} aria-label="Privacy Policy">
+        Privacy
+      </a>
       <div className={classes.social_icons}>
         <a
           href="https://www.linkedin.com/in/romanywu/"

@@ -125,3 +125,16 @@
     transform: translate3d(0, 0, 0);
   }
 }
+
+/* Simple footer text link */
+.footerLink {
+  color: var(--body_color);
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity var(--duration-fast) var(--ease-apple);
+}
+
+.footerLink:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
