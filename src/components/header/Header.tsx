@@ -34,7 +34,18 @@ const Header = () => {
 
   return (
     <header className={`${classes.mainHeader} ${isHomeRoute ? classes.notHomePage : ""}`}>
-      {!isHomeRoute && <h2 className={classes.fadeInElement}>Roman Wu</h2>}
+      {!isHomeRoute && (
+        <button
+          type="button"
+          onClick={() => {
+            window.location.href = "https://romanwu.com";
+          }}
+          className={`${classes.fadeInElement} ${classes.brandButton}`}
+          aria-label="Go to romanwu.com"
+        >
+          Roman Wu
+        </button>
+      )}
       <nav>
         <ul className={classes.headerNavUl}>
           <li className={classes.headerNavLi}>

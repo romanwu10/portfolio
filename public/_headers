@@ -1,41 +1,94 @@
-# Cloudflare Pages Headers Configuration
+##############################################
+# Cloudflare Pages Headers
+# Optimized for a modern full‑stack portfolio
+##############################################
 
-# Cache static assets for 1 year
+##############################################
+# Security baseline (applies to everything)
+##############################################
+/*
+  # Modern security
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  # Prevent being embedded; CSP is the modern replacement for X-Frame-Options
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; script-src 'self' 'report-sample'; style-src 'self' 'unsafe-inline' 'report-sample' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https:; worker-src 'self'; manifest-src 'self'; upgrade-insecure-requests
+  # Process isolation and CORP
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  X-Permitted-Cross-Domain-Policies: none
+  # Lock down powerful browser features by default
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), fullscreen=*, browsing-topics=()
+  # Legacy but harmless in modern browsers
+  X-XSS-Protection: 1; mode=block
+
+##############################################
+# HTML entry points – always revalidate
+##############################################
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+/
+  Cache-Control: public, max-age=0, must-revalidate
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+##############################################
+# Static build assets (fingerprinted) – long cache
+##############################################
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Cache images for 30 days
+##############################################
+# Images and icons at root – medium cache
+##############################################
 /*.png
-  Cache-Control: public, max-age=2592000
+  Cache-Control: public, max-age=2592000, immutable
 /*.jpg
-  Cache-Control: public, max-age=2592000
+  Cache-Control: public, max-age=2592000, immutable
 /*.jpeg
-  Cache-Control: public, max-age=2592000
+  Cache-Control: public, max-age=2592000, immutable
 /*.svg
-  Cache-Control: public, max-age=2592000
+  Cache-Control: public, max-age=2592000, immutable
 /*.ico
-  Cache-Control: public, max-age=2592000
+  Cache-Control: public, max-age=2592000, immutable
+/*.webp
+  Cache-Control: public, max-age=2592000, immutable
+/*.avif
+  Cache-Control: public, max-age=2592000, immutable
 
-# Cache fonts for 1 year
+##############################################
+# Fonts – very long cache
+##############################################
 /*.woff
-  Cache-Control: public, max-age=31536000
+  Cache-Control: public, max-age=31536000, immutable
 /*.woff2
-  Cache-Control: public, max-age=31536000
+  Cache-Control: public, max-age=31536000, immutable
 
-# PDF files with proper content type
+##############################################
+# PWA and metadata – quick revalidation
+##############################################
+/manifest.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: public, max-age=0, must-revalidate
+/manifest.json
+  Content-Type: application/manifest+json
+  Cache-Control: public, max-age=0, must-revalidate
+/robots.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=3600, must-revalidate
+/sitemap.xml
+  Content-Type: application/xml; charset=utf-8
+  Cache-Control: public, max-age=3600, must-revalidate
+/service-worker.js
+  Cache-Control: no-cache
+
+##############################################
+# Documents
+##############################################
 /*.pdf
   Content-Type: application/pdf
   Content-Disposition: inline
   Cache-Control: public, max-age=2592000
-
-# Security headers for all pages
-/*
-  X-Frame-Options: DENY
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
-  X-XSS-Protection: 1; mode=block
-  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-
-# Main HTML file - short cache with revalidation
-/index.html
-  Cache-Control: public, max-age=0, must-revalidate
+  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: frame-ancestors 'self'

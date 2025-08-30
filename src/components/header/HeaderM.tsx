@@ -64,8 +64,17 @@ const Header = () => {
   return (
     <header className={classes.mainHeader}>
       <Navbar collapseOnSelect expand="sm" className={classes.headerNavUl}>
-        <Navbar.Brand>
-          <h1 className={classes.navbar_color}>Roman Wu</h1>
+        <Navbar.Brand as="div" className={classes.navbar_color}>
+          <button
+            type="button"
+            onClick={() => {
+              window.location.href = "https://romanwu.com";
+            }}
+            className={classes.brandButton}
+            aria-label="Go to romanwu.com"
+          >
+            Roman Wu
+          </button>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

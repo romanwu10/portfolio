@@ -21,26 +21,34 @@ import classes from "./Footer.module.css";
 const Footer = () => {
   return (
     <footer className={classes.mainFooter}>
-      <DarkMode />
-      <a href="/privacy" className={classes.footerLink} aria-label="Privacy Policy">
-        Privacy
-      </a>
-      <div className={classes.social_icons}>
-        <a
-          href="https://www.linkedin.com/in/romanywu/"
-          className={classes.social_icon}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img src={linkedInLogo} alt="LinkedIn Profile" />
-        </a>
-        <a
-          href="https://github.com/romanywu"
-          className={classes.social_icon}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img src={githubLogo} alt="GitHub Profile" />
+      <div className={classes.left}>
+        <DarkMode />
+      </div>
+
+      <div className={classes.center}>
+        <div className={classes.social_icons}>
+          <a
+            href="https://www.linkedin.com/in/romanywu/"
+            className={classes.social_icon}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img src={linkedInLogo} alt="LinkedIn Profile" />
+          </a>
+          <a
+            href="https://github.com/romanywu"
+            className={classes.social_icon}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img src={githubLogo} alt="GitHub Profile" />
+          </a>
+        </div>
+      </div>
+
+      <div className={classes.right}>
+        <a href="/privacy" className={classes.footerLink} aria-label="Privacy Policy">
+          Privacy
         </a>
       </div>
     </footer>

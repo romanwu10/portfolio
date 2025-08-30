@@ -44,51 +44,14 @@ const projectsData = [
   {
     id: 'mckeil-marine',
     title: 'WhiteCap (Accounting ERP @ McKeil Marine)',
-    introDescription: (
-      <p>
-        McKeil Marine is a shipping company operating across the Great Lakes, St. 
-        Lawrence Seaway, east coast and Canadian Arctic since 1956.
-      </p>
-    ),
-    heroImage: {
-      src: "/projects/huron-spirit.jpg",
-      alt: "McKeil Marine - Huron Spirit",
-      caption: "Photograph courtesy of mckeil.com"
-    },
     content: (
       <>
-        {/* The Project Section */}
-        <section className={classes.section}>
-          <h3 className={classes.sectionTitle}>The Project</h3>
-          
-          <div className={classes.projectDetails}>
-            <div className={classes.detailsGrid}>
-              <div className={classes.detailBox}>
-                <h4 className={classes.detailTitle}>Details</h4>
-                <p className={classes.justify}>
-                  McKeil Marine brought me onboard, via Toptal, to design and develop an internal 
-                  web application used to track and record McKeil's shipping fleet.
-                </p>
-              </div>
-              
-              <div className={classes.detailBox}>
-                <h4 className={classes.detailTitle}>Key Requirements</h4>
-                <p className={classes.justify}>
-                  Create an internal application to replace the current mediums of spreadsheets 
-                  and email, streamline trip management process and gather data to increase efficiency.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* The Execution Section */}
         <section className={classes.section}>
           <h3 className={classes.sectionTitle}>The Execution</h3>
           
           <div className={classes.executionContent}>
             <div className={classes.executionItem}>
-              <h4 className={classes.executionTitle}>Don't Reinvent the Wheel</h4>
               <p className={classes.justify}>
                 I selected Google's Material UI because of its modern look, large number of 
                 available web components and active developer support. No library is going to cover 
@@ -146,9 +109,7 @@ const projectsData = [
         </section>
 
         {/* The Finished Product Section */}
-        <section className={classes.section}>
-          <h3 className={classes.sectionTitle}>The Finished Product</h3>
-          
+        <section className={classes.section}>          
           <div className={classes.finishedProduct}>
             <h4 className={classes.executionTitle}>Intuitive, Efficient and Downright Pretty</h4>
             <p className={classes.justify}>
@@ -164,33 +125,6 @@ const projectsData = [
             />
 
           </div>
-        </section>
-      </>
-    ),
-  },
-  {
-    id: 'leetcode-export-script',
-    title: 'LeetCode Export Script',
-    subtitle: (
-      <a href="https://github.com/romanywu/leetcode-export-script" target="_blank" rel="noopener noreferrer">
-        GitHub: romanywu/leetcode-export-script
-      </a>
-    ),
-    introDescription: (
-      <>
-        A command-line tool to export your solved LeetCode problems into markdown or HTML files, including problem descriptions, solutions, and metadata.
-      </>
-    ),
-    content: (
-      <>
-        <section className={classes.section}>
-          <h3 className={classes.sectionTitle}>Features</h3>
-          <ul>
-            <li><b>Export Formats:</b> Generate Markdown or HTML files for each solved problem.</li>
-            <li><b>Metadata:</b> Includes problem difficulty, tags, and runtime statistics.</li>
-            <li><b>Supports Multiple Languages:</b> Export code solutions in Java, Python, JavaScript, and more.</li>
-            <li><b>Lite CLI:</b> Simple commands and customizable output directory.</li>
-          </ul>
         </section>
       </>
     ),

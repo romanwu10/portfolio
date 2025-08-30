@@ -19,6 +19,14 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Responsive iframe for PDF preview */
+.previewFrame {
+  width: 100%;
+  height: min(80vh, 1000px);
+  display: block;
+  background: #fff;
+}
+
 .fallbackContainer {
   margin: 2rem 0;
   padding: 3rem;
@@ -87,6 +95,9 @@
 @media (max-width: 768px) {
   .resumeContainer {
     padding: 1rem;
+  }
+  .previewFrame {
+    height: 70vh;
   }
   
   .buttonGroup {

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './Resume.module.css';
 
 const Resume: React.FC = () => {
   const [pdfError, setPdfError] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const loadTimer = useRef<number | null>(null);
 
   const handleIframeError = () => {
     setPdfError(true);
@@ -12,29 +14,31 @@ const Resume: React.FC = () => {
     window.open('/resume/Roman_Wu_Resume.pdf', '_blank');
   };
 
+  useEffect(() => {
+    // Fallback: if the iframe doesn't report load within a few seconds,
+    // assume the built-in viewer blocked or failed and show fallback UI.
+    loadTimer.current = window.setTimeout(() => {
+      if (!loaded) setPdfError(true);
+    }, 3000);
+    return () => {
+      if (loadTimer.current) window.clearTimeout(loadTimer.current);
+    };
+  }, [loaded]);
+
   return (
-    <div className={styles.resumeContainer}>
-      <h1>Resume</h1>
-      
+    <div className={styles.resumeContainer}>      
       {!pdfError ? (
         <div className={styles.resumePreview}>
           <iframe
             src="/resume/Roman_Wu_Resume.pdf#toolbar=0&navpanes=0&scrollbar=0"
             title="Roman Wu Resume"
-            width="100%"
-            height="800px"
+            className={styles.previewFrame}
+            loading="lazy"
             style={{ border: 'none' }}
             onError={handleIframeError}
-            onLoad={(e) => {
-              // Check if iframe content loaded successfully
-              const iframe = e.target as HTMLIFrameElement;
-              try {
-                if (!iframe.contentDocument) {
-                  setPdfError(true);
-                }
-              } catch (error) {
-                setPdfError(true);
-              }
+            onLoad={() => {
+              setLoaded(true);
+              setPdfError(false);
             }}
           />
         </div>
