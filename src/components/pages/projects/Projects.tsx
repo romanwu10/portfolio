@@ -2,7 +2,17 @@ import React from 'react';
 import classes from './Projects.module.css';
 import ProjectCaseStudy from './ProjectCaseStudy'; // Import the new component
 
-const projectsData = [
+// Ensure consistent typing for project entries
+interface ProjectData {
+  id: string;
+  title: string;
+  subtitle?: React.ReactNode;
+  introDescription?: React.ReactNode;
+  heroImage?: { src: string; alt: string; caption?: string };
+  content: React.ReactNode;
+}
+
+const projectsData: ProjectData[] = [
   {
     id: 'gemini-enhancer',
     title: 'Gemini Enhancer (Chrome Extension)',
