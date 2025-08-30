@@ -11,9 +11,9 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
-  X-Frame-Options: DENY
-  # Prevent being embedded; CSP is the modern replacement for X-Frame-Options
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; script-src 'self' 'report-sample'; style-src 'self' 'unsafe-inline' 'report-sample' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https:; worker-src 'self'; manifest-src 'self'; upgrade-insecure-requests
+  # Do NOT set X-Frame-Options here to avoid conflicting with per-path overrides
+  # Do NOT set frame-ancestors here to allow per-path overrides
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'report-sample'; style-src 'self' 'unsafe-inline' 'report-sample' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https:; worker-src 'self'; manifest-src 'self'; upgrade-insecure-requests
   # Process isolation and CORP
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
@@ -28,10 +28,19 @@
 ##############################################
 /index.html
   Cache-Control: public, max-age=0, must-revalidate
+  # Prevent clickjacking for HTML documents
+  X-Frame-Options: DENY
+  Content-Security-Policy: frame-ancestors 'none'
 /
   Cache-Control: public, max-age=0, must-revalidate
+  # Prevent clickjacking for HTML documents
+  X-Frame-Options: DENY
+  Content-Security-Policy: frame-ancestors 'none'
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
+  # Prevent clickjacking for HTML documents
+  X-Frame-Options: DENY
+  Content-Security-Policy: frame-ancestors 'none'
 
 ##############################################
 # Static build assets (fingerprinted) – long cache
