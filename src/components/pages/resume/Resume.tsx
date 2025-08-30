@@ -27,19 +27,13 @@ const Resume: React.FC = () => {
     <div className={styles.resumeContainer}>      
       {useEmbed ? (
         <div className={styles.resumePreview}>
-          <object
-            data="/resume/Roman_Wu_Resume.pdf#toolbar=0&navpanes=0&scrollbar=0"
-            type="application/pdf"
+          <iframe
+            src="/resume/Roman_Wu_Resume.pdf#toolbar=0&navpanes=0&scrollbar=0"
+            title="Roman Wu Resume"
             className={styles.previewFrame}
-            aria-label="Roman Wu Resume PDF preview"
-          >
-            <div className={styles.fallbackContainer}>
-              <div className={styles.pdfPreviewMessage}>
-                <h3>Resume Preview</h3>
-                <p>Your browser may not support PDF preview. Please download or view in a new tab.</p>
-              </div>
-            </div>
-          </object>
+            loading="lazy"
+            style={{ border: 'none' }}
+          />
         </div>
       ) : (
         <div className={styles.fallbackContainer}>
