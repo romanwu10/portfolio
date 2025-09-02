@@ -40,7 +40,7 @@ const Header = () => {
           onClick={() => {
             window.location.href = "https://romanwu.com";
           }}
-          className={`${classes.fadeInElement} ${classes.brandButton}`}
+          className={`${classes.fadeInElement} ${classes.headerNavButton} ${classes.brandButton}`}
           aria-label="Go to romanwu.com"
         >
           Roman Wu

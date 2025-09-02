@@ -75,23 +75,11 @@
   margin-right: var(--space-8);
 }
 
-/* Brand link ("Roman Wu") */
-/* Brand button ("Roman Wu") */
+/* Brand button ("Roman Wu") - styled like other nav items */
 .brandButton {
+  /* inherit headerNavButton visuals; only adjust layout spacing */
   font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--header_color);
-  margin: 0;
   margin-right: var(--space-8);
-  line-height: 1;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-.brandButton:hover {
-  text-decoration: underline;
 }
 
 @keyframes fadeIn {
