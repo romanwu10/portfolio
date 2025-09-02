@@ -38,10 +38,10 @@ const Header = () => {
         <button
           type="button"
           onClick={() => {
-            window.location.href = "https://romanwu.com";
+            window.location.href = "/";
           }}
           className={`${classes.fadeInElement} ${classes.headerNavButton} ${classes.brandButton}`}
-          aria-label="Go to romanwu.com"
+          aria-label="Go to home"
         >
           Roman Wu
         </button>
