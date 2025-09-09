@@ -12,7 +12,7 @@
 ## Installation
 1. Clone the repo
    ```
-   git clone https://github.com/romanywu/romanywu.github.io.git
+   git clone https://github.com/romanywu/portfolio.git
    ```
 3. Install NPM packages
    ```
