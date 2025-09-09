@@ -26,7 +26,7 @@ const Privacy = () => {
             </li>
             <li>
               <strong>chrome.storage.local</strong> — <code className={classes.code}>autosavedContent_gemini</code>
-              {url, text, timestamp} to restore unsent drafts on the same
+              <code className={classes.code}>{"{url, text, timestamp}"}</code> to restore unsent drafts on the same
               device.
             </li>
           </ul>
