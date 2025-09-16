@@ -45,7 +45,7 @@ const Home = () => {
         <dl className={classes.heroStats}>
           <div>
             <dt>Years of experience</dt>
-            <dd>6+</dd>
+            <dd>2+</dd>
           </div>
           <div>
             <dt>Successfully delivered projects</dt>
