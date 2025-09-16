@@ -1,20 +1,51 @@
 .main {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: var(--body_background);
-  padding: var(--space-6);
+  padding: var(--space-8) clamp(var(--space-4), 4vw, var(--space-12));
   flex: 1;
   overflow-y: auto;
   color: var(--body_color);
+  background: radial-gradient(
+      circle at 15% 20%,
+      rgba(0, 122, 255, 0.08),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 85% 10%,
+      rgba(52, 199, 89, 0.08),
+      transparent 50%
+    ),
+    var(--body_background);
   transition: background var(--duration-normal) var(--ease-apple);
+}
+
+.main::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 255, 255, 0.4),
+      transparent 65%
+    );
+  mix-blend-mode: screen;
+  opacity: 0.45;
+}
+
+.main > * {
+  position: relative;
+  z-index: 1;
 }
 
 .centering {
   padding-top: var(--space-6);
-  padding-left: var(--space-8);
-  padding-right: var(--space-8);
+  padding-left: clamp(var(--space-4), 4vw, var(--space-10));
+  padding-right: clamp(var(--space-4), 4vw, var(--space-10));
   width: 100%;
+  margin: 0 auto;
 }
 
 .centeringLanguages {
@@ -62,6 +93,24 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+[data-theme="dark"] .main {
+  background: radial-gradient(
+      circle at 20% 15%,
+      rgba(10, 120, 255, 0.16),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 80% 0%,
+      rgba(94, 234, 212, 0.12),
+      transparent 50%
+    ),
+    var(--body_background);
+}
+
+[data-theme="dark"] .main::after {
+  opacity: 0.25;
 }
 
 /* Mobile optimizations */

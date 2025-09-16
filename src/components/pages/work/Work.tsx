@@ -1,35 +1,40 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import classes from "./Work.module.css";
-import { loadCompanies } from "../../../utils/utils";
+import { loadCompanies, workTime } from "../../../utils/utils";
 import Company from "../../../models/company";
+import Job from "../../../models/job";
 import JobData from "./JobData";
 import LoadingSpinner from "../../others/Loading/Loading";
 
-/**
- * Work Component
- *
- * This component fetches and displays a list of work experiences.
- * It uses the useState and useEffect hooks from React, and CSS modules for styling.
- *
- * The component maintains three state variables: 'companies', 'loading', and 'error'.
- * 'companies' is an array of Company objects.
- * 'loading' is a boolean indicating whether the data is currently being fetched.
- * 'error' is a boolean indicating whether an error occurred while fetching the data.
- *
- * The component includes a useEffect hook that fetches the data from 'data/jobs.json' when the component mounts.
- * If the fetch is successful, 'companies' is set to the loaded companies, and 'loading' is set to false.
- * If the fetch fails, 'error' is set to true, and 'loading' is set to false.
- *
- * The component conditionally renders different content based on the state.
- * If 'error' is true, it renders a message indicating that the data could not be loaded.
- * If 'loading' is true, it renders a loading spinner.
- * Otherwise, it renders a list of work experiences.
- * Each work experience includes the company name, job title, and job details.
- * If a company has more than one job, the jobs are displayed in a list.
- * If a company has only one job, the job is displayed without a list.
- *
- */
+const formatCompanyTimeline = (positions: Job[]) => {
+  if (positions.length === 0) {
+    return { range: "", duration: "" };
+  }
+
+  const sortedByStart = [...positions].sort((a, b) => {
+    const startA = new Date(`${a.startMonth} 1, ${a.startYear}`);
+    const startB = new Date(`${b.startMonth} 1, ${b.startYear}`);
+    return startA.getTime() - startB.getTime();
+  });
+
+  const first = sortedByStart[0];
+  const latest = sortedByStart[sortedByStart.length - 1];
+  const endLabel =
+    latest.endMonth === "" && latest.endYear === 0
+      ? "Present"
+      : `${latest.endMonth} ${latest.endYear}`;
+
+  const range = `${first.startMonth} ${first.startYear} – ${endLabel}`;
+  const duration = workTime(
+    first.startMonth,
+    first.startYear.toString(),
+    latest.endMonth,
+    latest.endYear.toString()
+  );
+
+  return { range, duration };
+};
+
 const Work = () => {
   const [companies, setCompanies] = useState([] as Company[]);
   const [loading, setLoading] = useState(true);
@@ -43,84 +48,101 @@ const Work = () => {
         setCompanies(loadedCompanies);
         setLoading(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setError(true);
         setLoading(false);
       });
   }, []);
 
+  const experiences = useMemo(() => {
+    return companies.map((company) => {
+      const { range, duration } = formatCompanyTimeline(company.positions);
+      return {
+        company,
+        primaryRole: company.positions[0],
+        range,
+        duration,
+      };
+    });
+  }, [companies]);
+
   if (error) {
     return (
-      <>
-        <h4 className={classes.contentTitle}>Work</h4>
-        <p className={classes.justify}>
-          Sorry, we couldn't load the information. Please, try again later.
+      <section className={classes.workSection}>
+        <h4 className={classes.sectionTitle}>Experience</h4>
+        <p className={classes.errorState}>
+          Sorry, we couldn't load the information. Please try again later.
         </p>
-      </>
+      </section>
     );
   }
 
   if (loading) {
     return (
-      <>
-        <h4 className={classes.contentTitle}>Work</h4>
+      <section className={classes.workSection}>
+        <h4 className={classes.sectionTitle}>Experience</h4>
         <LoadingSpinner />
-      </>
+      </section>
     );
   }
 
   return (
-    <>
-      <h4 className={classes.contentTitle}>Work</h4>
-
-      {/* Companies */}
-      {companies.map((company) => (
-        <React.Fragment key={company.name}>
-          {/* If more then one position and X company, create a list */}
-          {company.positions.length > 1 ? (
-            <ul className={classes.works}>
-              <div className={classes.companyContainer}>
-                <div className={classes.companyInfo}>
-                  <p className={classes.workTitle}>{company.name}</p>
-                  {company.positions.map((job) => (
-                    <li className={classes.job} key={job.title}>
-                      <p className={classes.workTitleSub}>{job.title}</p>
-                      <JobData job={job} />
-                    </li>
-                  ))}
-                </div>
-                <img
-                  src={company.logo}
-                  alt={company.name}
-                  className={classes.logo}
-                />
-              </div>
-            </ul>
-          ) : (
-            <>
-              {/* If company only got one position */}
-              {company.positions.map((job) => (
-                <div className={classes.works} key={job.title}>
-                  <div className={classes.companyContainer}>
-                    <div className={classes.companyInfo}>
-                      <p className={classes.workTitle}>
-                        {job.title} @ {job.company}
-                      </p>
-                      <JobData job={job} />
-                    </div>
+    <section className={classes.workSection}>
+      <header className={classes.sectionHeader}>
+        <div>
+          <h4 className={classes.sectionTitle}>Experience</h4>
+          <p className={classes.sectionSubtitle}>
+            High-impact roles across product, analytics, and engineering teams.
+          </p>
+        </div>
+      </header>
+      <ol className={classes.timeline}>
+        {experiences.map(({ company, primaryRole, range, duration }) => (
+          <li className={classes.timelineItem} key={company.name}>
+            <span className={classes.timelineMarker} aria-hidden="true" />
+            <article className={classes.companyCard}>
+              <header className={classes.companyHeader}>
+                <div className={classes.companyIdentity}>
+                  {company.logo && (
                     <img
                       src={company.logo}
                       alt={company.name}
-                      className={classes.logo}
+                      className={classes.companyLogo}
+                      loading="lazy"
                     />
+                  )}
+                  <div>
+                    <p className={classes.companyName}>
+                      {primaryRole?.company || company.name}
+                    </p>
+                    <p className={classes.companyMeta}>
+                      {range}
+                      {duration && <span> • {duration}</span>}
+                    </p>
                   </div>
                 </div>
-              ))}
-            </>
-          )}
-        </React.Fragment>
-      ))}
-    </>
+                {company.positions.length > 1 && (
+                  <span className={classes.roleCount}>
+                    {company.positions.length} roles
+                  </span>
+                )}
+              </header>
+              <div className={classes.roles}>
+                {company.positions.map((job) => (
+                  <div
+                    key={`${company.name}-${job.title}-${job.startMonth}-${job.startYear}`}
+                    className={classes.role}
+                  >
+                    <h5 className={classes.roleTitle}>{job.title}</h5>
+                    <JobData job={job} />
+                  </div>
+                ))}
+              </div>
+            </article>
+          </li>
+        ))}
+      </ol>
+    </section>
   );
 };
 

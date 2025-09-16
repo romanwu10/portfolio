@@ -6,50 +6,32 @@ type JobDataProps = {
   job: Job;
 };
 
-/**
- * JobData Component
- *
- * This component displays information about a job.
- * It uses CSS modules for styling.
- *
- * The component accepts one prop: 'job', which is a Job object.
- * The Job object includes properties for the type, location, description, start month, start year, end month, and end year of the job.
- *
- * The component returns a fragment containing several paragraphs.
- * The first paragraph displays the job type, the second paragraph displays the job location, and the third paragraph displays the job description.
- * The fourth paragraph displays the job dates and duration.
- * If the end month and end year of the job are not provided, the end date is displayed as 'Present'.
- * The duration is calculated by the 'workTime' function, which takes the start month, start year, end month, and end year as parameters.
- *
- */
 const JobData = ({ job }: JobDataProps) => {
+  const isCurrentRole = job.endMonth === "" && job.endYear === 0;
+  const dateLabel = isCurrentRole
+    ? `${job.startMonth} ${job.startYear} – Present`
+    : `${job.startMonth} ${job.startYear} – ${job.endMonth} ${job.endYear}`;
+  const durationLabel = workTime(
+    job.startMonth,
+    job.startYear.toString(),
+    job.endMonth,
+    job.endYear.toString()
+  );
+
   return (
-    <>
-      {job.type && <p className={classes.info}>{job.type}</p>}
-      {job.location && <p className={classes.info}>{job.location}</p>}
-      <p className={classes.description}>{job.description}</p>
-      {job.endMonth === "" && job.endYear === 0 ? (
-        <p className={classes.dates}>
-          {job.startMonth} {job.startYear} - Present &#xB7;{" "}
-          {workTime(
-            job.startMonth,
-            job.startYear.toString(),
-            job.endMonth,
-            job.endYear.toString()
-          )}
-        </p>
-      ) : (
-        <p className={classes.dates}>
-          {job.startMonth} {job.startYear} - {job.endMonth} {job.endYear} &#xB7;{" "}
-          {workTime(
-            job.startMonth,
-            job.startYear.toString(),
-            job.endMonth,
-            job.endYear.toString()
-          )}
-        </p>
+    <div className={classes.roleDetails}>
+      <div className={classes.roleMeta}>
+        {job.type && <span className={classes.rolePill}>{job.type}</span>}
+        {job.location && <span className={classes.roleLocation}>{job.location}</span>}
+      </div>
+      {job.description && (
+        <p className={classes.roleDescription}>{job.description}</p>
       )}
-    </>
+      <p className={classes.roleDates}>
+        <span>{dateLabel}</span>
+        <span className={classes.roleDuration}>{durationLabel}</span>
+      </p>
+    </div>
   );
 };
 
