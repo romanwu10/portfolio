@@ -13,22 +13,38 @@
   gap: var(--space-6);
 }
 
-.skills > ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.groupCard {
   border: 1px solid var(--color-gray-200);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: var(--space-4);
   transition: all var(--duration-fast) var(--ease-apple);
+  background-color: var(--color-white, #fff);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 }
 
-.skills > ul:hover {
+.groupCard:hover {
   border-color: var(--color-gray-300);
   box-shadow: var(--shadow);
 }
 
-.skills > ul > li {
+.groupTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--header_color);
+  margin: 0;
+}
+
+.skillList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.skillList > li {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
   padding: var(--space-2);
@@ -39,7 +55,7 @@
   color: var(--color-gray-700);
 }
 
-.skills > ul > li:hover {
+.skillList > li:hover {
   background-color: var(--color-gray-100);
   color: var(--header_color);
 }
@@ -53,20 +69,20 @@
 }
 
 /* Dark theme adjustments */
-[data-theme="dark"] .skills > ul {
+[data-theme="dark"] .groupCard {
   border-color: var(--color-gray-700);
   background: rgba(255, 255, 255, 0.02);
 }
 
-[data-theme="dark"] .skills > ul:hover {
+[data-theme="dark"] .groupCard:hover {
   border-color: var(--color-gray-600);
 }
 
-[data-theme="dark"] .skills > ul > li {
+[data-theme="dark"] .skillList > li {
   color: var(--color-gray-300);
 }
 
-[data-theme="dark"] .skills > ul > li:hover {
+[data-theme="dark"] .skillList > li:hover {
   background-color: rgba(255, 255, 255, 0.1);
   color: var(--color-gray-100);
 }

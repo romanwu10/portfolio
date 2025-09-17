@@ -1,22 +1,40 @@
 {
-  "programming_languages": [
-    { "name": "Python", "logo": "logo_skills/python.svg" },
-    { "name": "TypeScript", "logo": "logo_skills/typescript.svg" },
-    { "name": "SQL", "logo": "logo_skills/sql.svg" }
-  ],
-  "frameworks": [
-    { "name": "Redis", "logo": "logo_skills/redis.svg" },
-    { "name": "PostgreSQL", "logo": "logo_skills/postgresql.svg" },
-    { "name": "Node.js", "logo": "logo_skills/nodejs.svg" }
-  ],
-  "technologies": [
-    { "name": "Django", "logo": "logo_skills/django.svg" },
-    { "name": "React.js", "logo": "logo_skills/react.svg" },
-    { "name": "AWS", "logo": "logo_skills/aws.svg" }
-  ],
-  "stacks": [
-    { "name": "Git", "logo": "logo_skills/git.svg" },
-    { "name": "Docker", "logo": "logo_skills/docker.svg" },
-    { "name": "Next.js", "logo": "logo_skills/nextjs.svg" }
+  "groups": [
+    {
+      "title": "Languages & Core",
+      "skills": [
+        { "name": "TypeScript", "logo": "logo_skills/typescript.svg" },
+        { "name": "Python", "logo": "logo_skills/python.svg" },
+        { "name": "SQL", "logo": "logo_skills/sql.svg" },
+        { "name": "Bash", "logo": "logo_skills/bash.svg" }
+      ]
+    },
+    {
+      "title": "Frameworks",
+      "skills": [
+        { "name": "React", "logo": "logo_skills/react.svg" },
+        { "name": "Next.js", "logo": "logo_skills/nextjs.svg" },
+        { "name": "Node.js", "logo": "logo_skills/nodejs.svg" },
+        { "name": "Django", "logo": "logo_skills/django.svg" }
+      ]
+    },
+    {
+      "title": "Data & Messaging",
+      "skills": [
+        { "name": "PostgreSQL", "logo": "logo_skills/postgresql.svg" },
+        { "name": "MongoDB", "logo": "logo_skills/mongodb.svg" },
+        { "name": "Redis", "logo": "logo_skills/redis.svg" },
+        { "name": "Kafka", "logo": "logo_skills/kafka.svg" }
+      ]
+    },
+    {
+      "title": "Tools & Platforms",
+      "skills": [
+        { "name": "AWS", "logo": "logo_skills/aws.svg" },
+        { "name": "Docker", "logo": "logo_skills/docker.svg" },
+        { "name": "Kubernetes", "logo": "logo_skills/kubernetes.svg" },
+        { "name": "Git", "logo": "logo_skills/git.svg" }
+      ]
+    }
   ]
 }
