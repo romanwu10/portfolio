@@ -25,10 +25,12 @@ const Footer = () => {
         <DarkMode />
       </div>
 
-      <div className={classes.center}>
+      <div className={classes.center} aria-hidden="true" />
+
+      <div className={classes.right}>
         <div className={classes.social_icons}>
           <a
-            href="https://www.linkedin.com/in/romanywu/"
+            href="https://www.linkedin.com/in/romanwu10/"
             className={classes.social_icon}
             target="_blank"
             rel="noreferrer"
@@ -36,7 +38,7 @@ const Footer = () => {
             <img src={linkedInLogo} alt="LinkedIn Profile" />
           </a>
           <a
-            href="https://github.com/romanywu"
+            href="https://github.com/romanwu10"
             className={classes.social_icon}
             target="_blank"
             rel="noreferrer"
@@ -44,12 +46,6 @@ const Footer = () => {
             <img src={githubLogo} alt="GitHub Profile" />
           </a>
         </div>
-      </div>
-
-      <div className={classes.right}>
-        <a href="/privacy" className={classes.footerLink} aria-label="Privacy Policy">
-          Privacy
-        </a>
       </div>
     </footer>
   );

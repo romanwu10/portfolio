@@ -17,8 +17,8 @@ const projectsData: ProjectData[] = [
     id: 'gemini-enhancer',
     title: 'Gemini Enhancer (Chrome Extension)',
     subtitle: (
-      <a href="https://github.com/romanywu/Gemini-Enhancer" target="_blank" rel="noopener noreferrer">
-        GitHub: romanywu/Gemini-Enhancer
+      <a href="https://github.com/romanwu10/gemini-enhancer" target="_blank" rel="noopener noreferrer">
+        GitHub: romanwu10/Gemini-Enhancer
       </a>
     ),
     introDescription: (
@@ -41,7 +41,7 @@ const projectsData: ProjectData[] = [
         <section className={classes.section}>
           <h3 className={classes.sectionTitle}>Installation</h3>
           <ol>
-            <li>Visit <a href="https://github.com/romanywu/Gemini-Enhancer" target="_blank" rel="noopener noreferrer">the GitHub repository</a>.</li>
+            <li>Visit <a href="https://github.com/romanwu10/gemini-enhancer" target="_blank" rel="noopener noreferrer">the GitHub repository</a>.</li>
             <li>Download or clone the repo.</li>
             <li>Open <code>chrome://extensions/</code> in Chrome and enable Developer Mode.</li>
             <li>Click "Load unpacked" and select the <code>Chrome</code> folder from the repo.</li>

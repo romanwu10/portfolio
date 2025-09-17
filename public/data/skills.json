@@ -7,7 +7,7 @@
   "frameworks": [
     { "name": "Redis", "logo": "logo_skills/redis.svg" },
     { "name": "PostgreSQL", "logo": "logo_skills/postgresql.svg" },
-    { "name": "Linux", "logo": "logo_skills/linux.svg" }
+    { "name": "Node.js", "logo": "logo_skills/nodejs.svg" }
   ],
   "technologies": [
     { "name": "Django", "logo": "logo_skills/django.svg" },
@@ -17,6 +17,6 @@
   "stacks": [
     { "name": "Git", "logo": "logo_skills/git.svg" },
     { "name": "Docker", "logo": "logo_skills/docker.svg" },
-    { "name": "Power BI", "logo": "logo_skills/powerbi.svg" }
+    { "name": "Next.js", "logo": "logo_skills/nextjs.svg" }
   ]
 }

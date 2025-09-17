@@ -3,6 +3,14 @@ import classes from "./DarkMode.module.css";
 
 type ThemeOption = "auto" | "light" | "dark";
 
+const THEME_SEQUENCE: ThemeOption[] = ["auto", "light", "dark"];
+
+const themeLabels: Record<ThemeOption, string> = {
+  auto: "Device default",
+  light: "Light mode",
+  dark: "Dark mode",
+};
+
 const DarkMode = () => {
   const [themePreference, setThemePreference] = useState<ThemeOption>(
     (localStorage.getItem("themePreference") as ThemeOption) || "auto"
@@ -22,86 +30,105 @@ const DarkMode = () => {
   };
 
   const updateActualTheme = (preference: ThemeOption) => {
-    let newTheme: "light" | "dark";
-    
-    switch (preference) {
-      case "dark":
-        newTheme = "dark";
-        break;
-      case "light":
-        newTheme = "light";
-        break;
-      case "auto":
-      default:
-        newTheme = getSystemTheme();
-        break;
-    }
-    
+    const newTheme =
+      preference === "auto"
+        ? getSystemTheme()
+        : preference;
+
     applyTheme(newTheme);
   };
 
-  const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newPreference = event.target.value as ThemeOption;
-    setThemePreference(newPreference);
-    localStorage.setItem("themePreference", newPreference);
-    updateActualTheme(newPreference);
+  const cycleTheme = () => {
+    const currentIndex = THEME_SEQUENCE.indexOf(themePreference);
+    const nextPreference = THEME_SEQUENCE[(currentIndex + 1) % THEME_SEQUENCE.length];
+    setThemePreference(nextPreference);
+    localStorage.setItem("themePreference", nextPreference);
+    updateActualTheme(nextPreference);
   };
 
   useEffect(() => {
     // Migration from old theme system
     const oldTheme = localStorage.getItem("theme");
     const newThemePreference = localStorage.getItem("themePreference");
-    
+
     let initialPreference: ThemeOption = "auto";
-    
+
     if (newThemePreference) {
-      // New system exists, use it
       initialPreference = newThemePreference as ThemeOption;
     } else if (oldTheme) {
-      // Migrate from old system
       initialPreference = oldTheme === "dark" ? "dark" : "light";
       localStorage.setItem("themePreference", initialPreference);
-      localStorage.removeItem("theme"); // Clean up old key
+      localStorage.removeItem("theme");
     }
-    
+
     setThemePreference(initialPreference);
     updateActualTheme(initialPreference);
 
-    // Listen for changes in system preference
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleSystemChange = (e: MediaQueryListEvent) => {
-      // Get the current preference from localStorage to avoid stale closure
+    const handleSystemChange = (event: MediaQueryListEvent) => {
       const currentPreference = (localStorage.getItem("themePreference") as ThemeOption) || "auto";
-      // Only apply system changes when preference is "auto"
       if (currentPreference === "auto") {
-        const newTheme = e.matches ? "dark" : "light";
-        applyTheme(newTheme);
+        applyTheme(event.matches ? "dark" : "light");
       }
     };
 
     mediaQuery.addEventListener("change", handleSystemChange);
 
-    // Cleanup listener on component unmount
     return () => mediaQuery.removeEventListener("change", handleSystemChange);
-  }, []); // Remove themePreference from dependencies to avoid infinite re-renders
+  }, []);
+
+  const icon = {
+    auto: (
+      <svg className={classes.themeIcon} viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v10a1.5 1.5 0 0 1-1.5 1.5H14l1 2h2a1 1 0 1 1 0 2h-8a1 1 0 1 1 0-2h2l1-2H5.5A1.5 1.5 0 0 1 4 15.5v-10Zm1.5-.5a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5h-13Z"
+          fill="currentColor"
+        />
+        <rect x="6.5" y="6.5" width="11" height="7" rx="1" fill="currentColor" opacity="0.35" />
+      </svg>
+    ),
+    light: (
+      <svg className={classes.themeIcon} viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.5" fill="currentColor" />
+        <g stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+          <line x1="12" y1="3" x2="12" y2="5.2" />
+          <line x1="12" y1="18.8" x2="12" y2="21" />
+          <line x1="4.22" y1="4.22" x2="5.78" y2="5.78" />
+          <line x1="18.22" y1="18.22" x2="19.78" y2="19.78" />
+          <line x1="3" y1="12" x2="5.2" y2="12" />
+          <line x1="18.8" y1="12" x2="21" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.78" y2="18.22" />
+          <line x1="18.22" y1="5.78" x2="19.78" y2="4.22" />
+        </g>
+      </svg>
+    ),
+    dark: (
+      <svg className={classes.themeIcon} viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M12.25 3.5a8.5 8.5 0 1 0 8.25 10.16 6.5 6.5 0 1 1-8.25-8.66Z"
+          fill="currentColor"
+        />
+      </svg>
+    ),
+  }[themePreference];
 
   return (
     <div className={classes.themeSelector}>
-      <label htmlFor="theme-select" className={classes.themeLabel}>
-        Theme:
-      </label>
-      <div className={classes.selectWrapper}>
-        <select
-          id="theme-select"
-          className={classes.themeSelect}
-          value={themePreference}
-          onChange={handleThemeChange}
-        >
-          <option value="auto">Device default</option>
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-        </select>
-      </div>
+      <button
+        type="button"
+        onClick={cycleTheme}
+        className={classes.themeButton}
+        aria-label={`${themeLabels[themePreference]} (click to switch theme)`}
+        title={`${themeLabels[themePreference]}`}
+      >
+        {icon}
+        {themePreference === "auto" && (
+          <span
+            className={`${classes.autoIndicator} ${actualTheme === "dark" ? classes.autoIndicatorDark : classes.autoIndicatorLight}`}
+            aria-hidden="true"
+          />
+        )}
+      </button>
     </div>
   );
 };
